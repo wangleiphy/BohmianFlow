@@ -5,7 +5,7 @@ import jax.numpy as jnp
 import numpy as np
 import pytest
 
-from bohmian_score_matching import baseline
+from bohmian_flow import baseline
 
 
 def test_harmonic_approximation_identifies_eigenmodes():

@@ -4,7 +4,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from bohmian_score_matching import evaluate, network, potentials
+from bohmian_flow import evaluate, network, potentials
 
 
 def test_evaluate_shapes():

@@ -38,7 +38,7 @@ def make_acceleration_fn(V_fn, score_fn, params, hbar=1.0, mass=1.0):
     depend on first, second, and third spatial derivatives of the scalar
     potential phi_theta behind s_theta = grad phi_theta.
     """
-    from bohmian_score_matching.network import quantum_potential
+    from bohmian_flow.network import quantum_potential
 
     def accel_fn(x, t):
         F_cl = -jax.grad(V_fn)(x)

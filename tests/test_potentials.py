@@ -5,7 +5,7 @@ import jax.numpy as jnp
 import numpy as np
 import pytest
 
-from bohmian_score_matching import potentials
+from bohmian_flow import potentials
 
 
 def test_morse_chain_defaults():

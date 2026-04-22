@@ -3,7 +3,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bohmian-score-matching"
+name = "bohmian-flow"
 version = "1.0.0"
 description = "Quantum dynamics via score matching on Bohmian trajectories"
 readme = "README.md"
@@ -23,7 +23,7 @@ dependencies = [
 test = ["pytest>=7.4"]
 
 [tool.setuptools.packages.find]
-include = ["bohmian_score_matching*"]
+include = ["bohmian_flow*"]
 exclude = ["tests*", "scripts*", "data*", "figures*", "checkpoints*"]
 
 [tool.pytest.ini_options]

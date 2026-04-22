@@ -39,7 +39,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    from bohmian_score_matching.fft import (
+    from bohmian_flow.fft import (
         gaussian_wavepacket_nd, split_operator_nd,
     )
 

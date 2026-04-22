@@ -66,7 +66,7 @@ def fisher_loss(params, X0, V0, score_fn, V_fn, T, dt, initial_score_fn,
     Returns:
         Scalar loss averaged over (particles, non-masked checkpoints).
     """
-    from bohmian_score_matching.trajectory import propagate_with_F
+    from bohmian_flow.trajectory import propagate_with_F
 
     d = X0.shape[1]
     eye_d = jnp.eye(d, dtype=X0.dtype)

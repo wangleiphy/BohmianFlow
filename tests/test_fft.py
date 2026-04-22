@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from bohmian_score_matching import fft
+from bohmian_flow import fft
 
 
 def test_harmonic_ground_state_energy_1d():

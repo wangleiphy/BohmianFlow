@@ -27,8 +27,8 @@ def evaluate_trajectories(score_fn, params, V_fn, X0, V0, T, dt,
         dict with ``mean_x: (K, d)``, ``sigma: (K, d)``, ``energies: (M, K)``,
         ``t: (K,)``.
     """
-    from bohmian_score_matching.trajectory import propagate_with_F
-    from bohmian_score_matching.network import quantum_potential_batch
+    from bohmian_flow.trajectory import propagate_with_F
+    from bohmian_flow.network import quantum_potential_batch
 
     n_steps = int(T / dt)
 

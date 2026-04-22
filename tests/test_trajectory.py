@@ -5,7 +5,7 @@ import jax.numpy as jnp
 import numpy as np
 import pytest
 
-from bohmian_score_matching import trajectory
+from bohmian_flow import trajectory
 
 
 def _zero_score(params, x, t):

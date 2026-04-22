@@ -64,14 +64,14 @@ def parse_args():
 
 def main():
     args = parse_args()
-    from bohmian_score_matching.potentials import morse_chain
-    from bohmian_score_matching.baseline import make_baseline_score
-    from bohmian_score_matching.network import (
+    from bohmian_flow.potentials import morse_chain
+    from bohmian_flow.baseline import make_baseline_score
+    from bohmian_flow.network import (
         make_score_network, count_params,
     )
-    from bohmian_score_matching.core import make_initial_score_fn
-    from bohmian_score_matching.train import train_fisher
-    from bohmian_score_matching.checkpoint import load_checkpoint
+    from bohmian_flow.core import make_initial_score_fn
+    from bohmian_flow.train import train_fisher
+    from bohmian_flow.checkpoint import load_checkpoint
 
     system = morse_chain(d=args.d, lam=args.lam)
     d = system['r0_mean'].shape[0]

@@ -1,4 +1,4 @@
-"""Bohmian Score Matching.
+"""Bohmian Flow.
 
 Reference implementation for
     "Quantum Dynamics via Score Matching on Bohmian Trajectories"

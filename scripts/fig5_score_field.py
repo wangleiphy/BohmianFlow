@@ -38,10 +38,10 @@ def compute_data(checkpoint_path, psi_pkl, times, dims, data_out):
     import jax.numpy as jnp
     jax.config.update("jax_enable_x64", True)
 
-    from bohmian_score_matching.potentials import morse_chain
-    from bohmian_score_matching.network import make_score_network
-    from bohmian_score_matching.baseline import make_baseline_score
-    from bohmian_score_matching.checkpoint import load_checkpoint
+    from bohmian_flow.potentials import morse_chain
+    from bohmian_flow.network import make_score_network
+    from bohmian_flow.baseline import make_baseline_score
+    from bohmian_flow.checkpoint import load_checkpoint
 
     ckpt = load_checkpoint(checkpoint_path)
     ck_args = ckpt.get('args', {}) or {}

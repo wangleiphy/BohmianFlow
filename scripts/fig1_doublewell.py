@@ -50,7 +50,7 @@ def parse_args():
 
 
 def compute(args):
-    from bohmian_score_matching.fft import bohmian_trajectories_1d
+    from bohmian_flow.fft import bohmian_trajectories_1d
     x = np.linspace(-args.L, args.L, args.N_grid)
     dx = x[1] - x[0]
     V = args.D * (x ** 2 / args.a ** 2 - 1.0) ** 2

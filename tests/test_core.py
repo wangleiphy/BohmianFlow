@@ -5,7 +5,7 @@ import jax.numpy as jnp
 import numpy as np
 import pytest
 
-from bohmian_score_matching import core
+from bohmian_flow import core
 
 
 def test_initial_score_gaussian():
@@ -75,7 +75,7 @@ def test_fisher_loss_at_t0_exact():
 
 def test_fisher_loss_differentiable():
     """grad(L) w.r.t. params must return finite values."""
-    from bohmian_score_matching import network
+    from bohmian_flow import network
 
     d = 2
     r0 = jnp.zeros(d)

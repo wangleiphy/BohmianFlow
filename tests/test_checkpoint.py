@@ -8,7 +8,7 @@ import jax.numpy as jnp
 import numpy as np
 import optax
 
-from bohmian_score_matching import checkpoint
+from bohmian_flow import checkpoint
 
 
 def test_save_load_roundtrip():

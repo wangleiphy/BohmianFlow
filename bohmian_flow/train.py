@@ -6,7 +6,7 @@ Optimises
 
 by backpropagation through the discretised Bohmian trajectory (BPTT).  The
 inner integrator and loss are defined in
-:mod:`bohmian_score_matching.trajectory` and :mod:`bohmian_score_matching.core`.
+:mod:`bohmian_flow.trajectory` and :mod:`bohmian_flow.core`.
 
 Features retained in this release (exactly matching the PRL runs):
 
@@ -15,7 +15,7 @@ Features retained in this release (exactly matching the PRL runs):
 * Multi-GPU data parallelism via ``jax.pmap`` when more than one device is
   visible.
 * Stochastic subsampling of time checkpoints each epoch (``n_checkpoints``).
-* Resume support through :mod:`bohmian_score_matching.checkpoint`.
+* Resume support through :mod:`bohmian_flow.checkpoint`.
 * Every ``print_every`` epochs the script also evaluates diagnostics on a
   small independent batch: ``E_mean``, ``E_std``, ``min|det F|``, and the
   fraction of caustic-masked particles.  These appear in the log line and
@@ -89,8 +89,8 @@ def train_fisher(score_fn, params, V_fn,
         diagnostics: dict with ``final_loss``, ``final_epoch``,
             ``opt_state``, ``loss_history``.
     """
-    from bohmian_score_matching.core import fisher_loss, make_initial_score_fn
-    from bohmian_score_matching.checkpoint import save_checkpoint
+    from bohmian_flow.core import fisher_loss, make_initial_score_fn
+    from bohmian_flow.checkpoint import save_checkpoint
 
     if initial_score_fn is None:
         initial_score_fn = make_initial_score_fn(r0_mean, r0_cov)
@@ -172,8 +172,8 @@ def train_fisher(score_fn, params, V_fn,
         return optax.apply_updates(train_params, updates), new_state
 
     # --- print-time diagnostics: E_mean, min|det F|, masked fraction ------
-    from bohmian_score_matching.trajectory import propagate_with_F
-    from bohmian_score_matching.network import quantum_potential_batch
+    from bohmian_flow.trajectory import propagate_with_F
+    from bohmian_flow.network import quantum_potential_batch
     M_eval = min(M_train, max(1, int(eval_batch_size)))
 
     @jax.jit

@@ -5,7 +5,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from bohmian_score_matching import (
+from bohmian_flow import (
     potentials, baseline, network, train, core,
 )
 

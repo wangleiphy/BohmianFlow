@@ -5,7 +5,7 @@ import jax.numpy as jnp
 import numpy as np
 import pytest
 
-from bohmian_score_matching import network
+from bohmian_flow import network
 
 
 def _zero_baseline(d):

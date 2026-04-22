@@ -1,4 +1,4 @@
-# Bohmian Score Matching
+# Bohmian Flow
 
 [![tests](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml/badge.svg)](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml)
 
@@ -22,7 +22,7 @@ without retraining.**
 ## Repository layout
 
 ```
-bohmian_score_matching/   Library
+bohmian_flow/   Library
   potentials.py             Morse chain, double-well factories
   baseline.py               Gaussian baseline from harmonic approximation
   network.py                Score network (MLP + FiLM time conditioning)
@@ -294,11 +294,11 @@ hyperparameters stored in the checkpoint `args`.  Minimal example:
 import jax, jax.numpy as jnp
 jax.config.update("jax_enable_x64", True)
 
-from bohmian_score_matching.potentials import morse_chain
-from bohmian_score_matching.baseline import make_baseline_score
-from bohmian_score_matching.network import make_score_network
-from bohmian_score_matching.checkpoint import load_checkpoint
-from bohmian_score_matching.evaluate import (
+from bohmian_flow.potentials import morse_chain
+from bohmian_flow.baseline import make_baseline_score
+from bohmian_flow.network import make_score_network
+from bohmian_flow.checkpoint import load_checkpoint
+from bohmian_flow.evaluate import (
     sample_initial_conditions, evaluate_trajectories,
 )
 
@@ -333,7 +333,7 @@ conservation as in the training log.
 * Score network `s_θ(x, t) = s_base(x, t) + ∇_x φ_θ(x, t)` where
   `s_base` is the exact Gaussian score of the harmonic approximation to
   V and `φ_θ` is a FiLM-conditioned MLP
-  (`bohmian_score_matching/network.py`).
+  (`bohmian_flow/network.py`).
 * Fisher loss
   `L[s_θ] = E_{ρ_θ}[ |s_θ - ∇ ln ρ_θ|² ]`
   evaluated on Bohmian particles; the target uses
