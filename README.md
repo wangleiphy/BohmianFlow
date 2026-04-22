@@ -1,3 +1,12 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"
+            srcset="assets/logos/logo-dark.svg">
+    <img src="assets/logos/logo-light.svg" alt="BohmianFlow"
+         width="260">
+  </picture>
+</p>
+
 # Bohmian Flow
 
 [![tests](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml/badge.svg)](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml)
