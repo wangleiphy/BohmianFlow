@@ -84,16 +84,22 @@ def _render(out_stem, cmap_name, bg, density_color,
     norm = (x0 - x0.min()) / (x0.max() - x0.min() + 1e-12)
     colors = [cmap(n) for n in norm]
 
+    transparent = (bg is None) or (isinstance(bg, str) and bg.lower() == 'none')
+
     fig = plt.figure(figsize=figsize, dpi=dpi)
     ax = fig.add_axes([0, 0, 1, 1])
     ax.set_xlim(*g['x_range'])
     ax.set_ylim(0, 1)
     ax.axis('off')
-    fig.patch.set_facecolor(bg)
+    if transparent:
+        fig.patch.set_alpha(0.0)
+        ax.set_facecolor('none')
+    else:
+        fig.patch.set_facecolor(bg)
 
     for s in g['silhouettes']:
         ax.plot(g['x_plot'], s['upper'], color=density_color,
-                lw=density_lw, zorder=3)
+                lw=density_lw, zorder=3, solid_capstyle='round')
 
     for xp, col in zip(g['traj_xs'], colors):
         ax.plot(xp, g['y_of_t'], color=col, lw=traj_lw,
@@ -101,8 +107,9 @@ def _render(out_stem, cmap_name, bg, density_color,
 
     png_path = os.path.join(HERE, f'{out_stem}.png')
     svg_path = os.path.join(HERE, f'{out_stem}.svg')
-    fig.savefig(png_path, dpi=dpi, facecolor=bg)
-    fig.savefig(svg_path, facecolor=bg)
+    save_kwargs = {'transparent': True} if transparent else {'facecolor': bg}
+    fig.savefig(png_path, dpi=dpi, **save_kwargs)
+    fig.savefig(svg_path, **save_kwargs)
     plt.close(fig)
     print(f'wrote {png_path} and {svg_path}')
 
@@ -170,6 +177,14 @@ def main():
     _render('logo-dark',
             cmap_name='turbo', bg='#0b1220',
             density_color='#dde7f2')
+    # Transparent variants: paper_rainbow trajectories on a transparent
+    # canvas; silhouette colour/width chosen for each target background.
+    _render('logo-light-transparent',
+            cmap_name='paper_rainbow', bg='none',
+            density_color='#1a3a63', density_lw=0.8)
+    _render('logo-dark-transparent',
+            cmap_name='paper_rainbow', bg='none',
+            density_color='white', density_lw=2.5)
     _render_social('social-preview',
                    cmap_name='paper_rainbow', bg='white',
                    density_color='#1a3a63',
