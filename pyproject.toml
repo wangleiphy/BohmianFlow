@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bohmian-score-matching"
+version = "1.0.0"
+description = "Quantum dynamics via score matching on Bohmian trajectories"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Lei Wang" }]
+requires-python = ">=3.10"
+dependencies = [
+    "jax>=0.4.25",
+    "jaxlib>=0.4.25",
+    "optax>=0.2.0",
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.4"]
+
+[tool.setuptools.packages.find]
+include = ["bohmian_score_matching*"]
+exclude = ["tests*", "scripts*", "data*", "figures*", "checkpoints*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
