@@ -107,6 +107,62 @@ def _render(out_stem, cmap_name, bg, density_color,
     print(f'wrote {png_path} and {svg_path}')
 
 
+def _render_social(out_stem, cmap_name, bg, density_color, text_color,
+                   subtitle_color, W=1280, H=640, dpi=100,
+                   traj_lw=1.3, traj_alpha=0.95, density_lw=1.1,
+                   subtitle_weight='regular'):
+    """Render the GitHub social-preview card (1280 x 640).
+
+    Layout: logo mark on the left (square region), title + subtitle
+    stacked on the right, with generous white space.
+    """
+    g = _geometry()
+    cmap = plt.get_cmap(cmap_name)
+    x0 = np.array([xp[0] for xp in g['traj_xs']])
+    norm = (x0 - x0.min()) / (x0.max() - x0.min() + 1e-12)
+    colors = [cmap(n) for n in norm]
+
+    fig = plt.figure(figsize=(W / dpi, H / dpi), dpi=dpi)
+    fig.patch.set_facecolor(bg)
+
+    # Left half: logo mark, centred in a square region.
+    ax = fig.add_axes([0.03, 0.08, 0.34, 0.84])  # x0, y0, w, h in fig coords
+    ax.set_xlim(*g['x_range'])
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+    for s in g['silhouettes']:
+        ax.plot(g['x_plot'], s['upper'], color=density_color,
+                lw=density_lw, zorder=3)
+    for xp, col in zip(g['traj_xs'], colors):
+        ax.plot(xp, g['y_of_t'], color=col, lw=traj_lw,
+                alpha=traj_alpha, zorder=5, solid_capstyle='round')
+
+    # Right half: title + subtitle.
+    text_x = 0.41
+    fig.text(text_x, 0.62, 'BohmianFlow', ha='left', va='center',
+             fontsize=66, fontweight='bold', color=text_color,
+             family='serif')
+    fig.text(text_x, 0.44,
+             'Quantum Dynamics via Score Matching',
+             ha='left', va='center',
+             fontsize=24, color=subtitle_color,
+             family='serif', style='italic')
+    fig.text(text_x, 0.38,
+             'on Bohmian Trajectories',
+             ha='left', va='center',
+             fontsize=24, color=subtitle_color,
+             family='serif', style='italic')
+    fig.text(text_x, 0.22,
+             'github.com/wangleiphy/BohmianFlow',
+             ha='left', va='center',
+             fontsize=18, color=subtitle_color, family='monospace')
+
+    png = os.path.join(HERE, f'{out_stem}.png')
+    fig.savefig(png, dpi=dpi, facecolor=bg)
+    plt.close(fig)
+    print(f'wrote {png}  ({W}x{H})')
+
+
 def main():
     _render('logo-light',
             cmap_name='paper_rainbow', bg='white',
@@ -114,6 +170,10 @@ def main():
     _render('logo-dark',
             cmap_name='turbo', bg='#0b1220',
             density_color='#dde7f2')
+    _render_social('social-preview',
+                   cmap_name='paper_rainbow', bg='white',
+                   density_color='#1a3a63',
+                   text_color='#0d2f4f', subtitle_color='#4a5a72')
 
 
 if __name__ == '__main__':
