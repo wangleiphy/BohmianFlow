@@ -1,5 +1,7 @@
 # Bohmian Score Matching
 
+[![tests](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml/badge.svg)](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml)
+
 Reference implementation of
 
 > **Quantum Dynamics via Score Matching on Bohmian Trajectories**  
