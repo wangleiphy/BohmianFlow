@@ -7,14 +7,9 @@
   </picture>
 </p>
 
-# Bohmian Flow
+# Bohmian Flow for Quantum Dynamics
 
 [![tests](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml/badge.svg)](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml)
-
-Reference implementation of
-
-> **Quantum Dynamics via Score Matching on Bohmian Trajectories**  
-> Lei Wang.
 
 The time-dependent Schrödinger equation is solved by training a neural
 network to represent the score `s = ∇ ln ρ` of the evolving probability
