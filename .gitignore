@@ -21,6 +21,7 @@ logs/*.log
 # Bundled artefacts (trained checkpoint + cached reproduction data).
 !checkpoints/morse_d4.pkl
 !data/fft_ref_morse_d4.npz
+!data/fig1_doublewell.npz
 !data/fig4_moments.npz
 !data/fig5_score_data.npz
 

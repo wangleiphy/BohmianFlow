@@ -42,11 +42,13 @@ scripts/                  End-user CLIs
   compute_fft_reference.py  Produce FFT moments + psi snapshots
   extract_training_log.py   Parse training log into NPZ
   fig1_doublewell.py        Figure 1 (double-well schematic)
+  fig2_framework.py         Figure 2 (training-loop schematic)
   fig3_training.py          Figure 3 (loss + energy error vs epoch)
   fig4_moments.py           Figure 4 (per-mode <x_i>(t), sigma_i(t))
   fig5_score_field.py       Figure 5 (learned score-field streamlines)
+  kl_divergence.py          Density-level KL check reported in the text
 
-tests/                    pytest unit + smoke tests (28 tests)
+tests/                    pytest unit + smoke tests (30 tests)
 
 checkpoints/
   morse_d4.pkl              Trained 45 000-epoch d=4 Morse chain
@@ -55,6 +57,8 @@ checkpoints/
 data/
   fft_ref_morse_d4.npz      FFT reference: t, means (315, 4), sigmas,
                             E_exact = 2.3236172282...
+  fig1_doublewell.npz       Cached exact double-well density + trajectories
+                            (Figure 1).
   fig4_moments.npz          Cached learned vs exact moments (Figure 4).
   fig5_score_data.npz       Cached learned score field + slice densities
                             (Figure 5).
@@ -86,7 +90,7 @@ single-GPU and CPU runs work without any change.
 pytest -v
 ```
 
-Expected: `28 passed` in under a minute on CPU.
+Expected: `30 passed` in about a minute on CPU.
 
 ## Reproducing the paper figures
 
@@ -116,6 +120,16 @@ Replot from cache:
 python scripts/fig1_doublewell.py \
     --data   data/fig1_doublewell.npz \
     --output figures/fig1_doublewell.png
+```
+
+### Figure 2 — Training-loop schematic
+
+Framework diagram for the self-consistent score-matching loop.  No training
+is involved.
+
+```bash
+python scripts/fig2_framework.py \
+    --output figures/fig2_framework.png
 ```
 
 ### Figure 3 — Training convergence (d=4 Morse chain)
@@ -202,6 +216,21 @@ python scripts/fig5_score_field.py \
     --dims       0 1 \
     --data-out   data/fig5_score_data.npz \
     --output     figures/fig5_score_field.png
+```
+
+### Density-level KL check
+
+The text reports the reverse KL
+`KL(rho_theta || rho_exact)` near the interpolation floor at `t = 0` and
+`t = pi`.  This uses the same FFT snapshot pickle needed to recompute
+Figure 5.
+
+```bash
+python scripts/kl_divergence.py \
+    --checkpoint checkpoints/morse_d4.pkl \
+    --psi-pkl    data/fft_psi_snapshots.pkl \
+    --M          20000 \
+    --data-out   data/kl_morse_d4.npz
 ```
 
 ## Training from scratch

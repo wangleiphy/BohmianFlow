@@ -21,10 +21,9 @@ import numpy as np
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-EPOCH_RE = re.compile(
-    r'^Epoch\s+(\d+)/\d+:\s+loss=([\dEe\-+.]+)'
-    r'.*?(?:\|\s+E_mean=([\dEe\-+.]+))?'
-)
+FLOAT = r'[\dEe\-+.]+'
+EPOCH_RE = re.compile(rf'^Epoch\s+(\d+)/\d+:\s+loss=({FLOAT})')
+E_MEAN_RE = re.compile(rf'\bE_mean=({FLOAT})')
 
 
 def parse_log(path):
@@ -38,7 +37,8 @@ def parse_log(path):
                 continue
             epochs.append(int(m.group(1)))
             losses.append(float(m.group(2)))
-            e_means.append(float(m.group(3)) if m.group(3) else np.nan)
+            em = E_MEAN_RE.search(line)
+            e_means.append(float(em.group(1)) if em else np.nan)
     return np.array(epochs), np.array(losses), np.array(e_means)
 
 
