@@ -10,6 +10,7 @@
 # Bohmian Flow for Quantum Dynamics
 
 [![tests](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml/badge.svg)](https://github.com/wangleiphy/BohmianFlow/actions/workflows/tests.yml)
+[![arXiv](https://img.shields.io/badge/arXiv-2604.25137-b31b1b.svg)](https://arxiv.org/abs/2604.25137)
 
 The time-dependent Schrödinger equation is solved by training a neural
 network to represent the score `s = ∇ ln ρ` of the evolving probability
